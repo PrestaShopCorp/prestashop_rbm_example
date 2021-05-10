@@ -1,0 +1,4 @@
+.DS_Store
+vendor
+_dev/apps/**/node_modules/
+_dev/apps/node_modules/
