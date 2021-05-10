@@ -5,12 +5,18 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "@/components/HelloWorld.vue";
+import { mapSagas } from "@/lib/store-saga";
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  setup(props, context) {
+    console.log('demo rbm');
+    const saga = { ...mapSagas({ retrieveToken: "retrieveToken" }, context) };
+    saga.retrieveToken();
   }
 }
 </script>
