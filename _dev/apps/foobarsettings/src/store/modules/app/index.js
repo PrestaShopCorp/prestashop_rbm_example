@@ -1,3 +1,5 @@
+import getters from "./getters";
+
 const { storePsFoobar, contextPsAccounts } = global;
 Object.assign(
     storePsFoobar.context.user,
@@ -6,5 +8,6 @@ Object.assign(
 const stateGlobal = storePsFoobar ? storePsFoobar.context : {};
 
 export default {
-    state: stateGlobal
+    state: stateGlobal,
+    getters
 };

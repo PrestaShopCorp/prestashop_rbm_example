@@ -1,29 +1,11 @@
 <template>
-  <!-- <div class="hello">
-    <h1>{{ msg }}</h1>
-    <div>hello world</div>
-    <PsAccounts :force-show-plans="true">
-      <template v-slot:account-footer>
-        <PsBilling
-          :account-api="state.accountApi"
-          :module-name="state.moduleName"
-          :shop-uuid="state.shopUuid"
-        />
-      </template>
-    </PsAccounts>
-  </div> -->
   <div class="pt-2">
-    <!-- <ConfigurationBanner class="mt-2 mb-4" :app="state.app" /> -->
     <section v-if="!state.getDisplayModulePlans" key="display-module-plan">
       <div class="p-0 m-auto tw-container">
         <PsAccounts :force-show-plans="true">
-          <!-- <template v-slot:body>
-            <div class="mt-4">
-              <DataSource :loading="state.loadingListProperties" />
-            </div>
-          </template> -->
           <template v-slot:account-footer>
             <PsBilling
+              :initialize="state.initialize"
               :account-api="state.accountApi"
               :module-name="state.moduleName"
               :module-logo="moduleLogo"
@@ -46,14 +28,19 @@
 </template>
 
 <script>
+import BillingPlans from "@/components/panel/BillingPlans";
 import { PsAccounts } from "prestashop_accounts_vue_components";
 import { PsBilling } from "@prestashopcorp/prestashop_billing_vue_components";
 import { ref, watch, computed, reactive } from "@vue/composition-api";
 import { mapSagas } from "@/lib/store-saga";
 import moduleLogo from "@/assets/icon-ps-metrics.png";
-import { useQuery } from "@vue/apollo-composable";
+import { useQuery, useSubscription } from "@vue/apollo-composable";
 import {
-  accountQuery
+  accountQuery,
+  subscriptionAccount,
+  subscriptionLastSync,
+  subscriptionStartSync,
+  subscriptionFirstSync
 } from "@/graphql";
 
 export default {
@@ -64,12 +51,14 @@ export default {
   components: {
     PsAccounts,
     PsBilling,
+    BillingPlans,
   },
   setup(props, context) {
     const {
       root: { $store }
     } = context;
     const state = reactive({
+      initialize: computed(() => $store.getters.loadingBilling),
       moduleName: computed(() => $store.state.app.moduleName),
       accountApi: computed(() => $store.state.app.controllersLinks.accounts),
       shopUuid: computed(() => $store.state.app.shop.shopUuid),
@@ -79,10 +68,18 @@ export default {
       loadingListProperties: computed(
         () => $store.getters.getLoadingListProperties
       ),
+      accountConnected: computed(() => $store.getters.psAccountsIsOnboarded),
     });
     const variables = ref({ shopId: $store.state.app.shop.shopUuid });
     const sagas = mapSagas(
       {
+        getListProperty: "getListProperty",
+        setDisplayModulePlans: "setDisplayModulePlans",
+        setAccount: "selectAccount",
+        setPlan: "setPlan",
+        setStartSync: "setStartSync",
+        setLastSync: "setLastSync",
+        setStartSyncedAt: "setStartSyncedAt",
         initBillingFree: "initBillingFree"
       },
       context
@@ -94,8 +91,36 @@ export default {
         fetchPolicy: "network-only"
       }
     );
+    const {
+      result: resultSubscriptionAccount /* loading: loadingSubscriptionAccount, error: errorSubscriptionAccount */
+    } = useSubscription(subscriptionAccount, variables, {
+      fetchPolicy: "network-only"
+    });
+
+    const {
+      result: resultSubscriptionFirstSync /* loading: loadingSubscriptionFirstSync,  error: errorSubscriptionFirstSync */
+    } = useSubscription(subscriptionFirstSync, variables, {
+      fetchPolicy: "network-only"
+    });
+    const {
+      result: resultSubscriptionLastSync /* loading: loadingSubscriptionLastSync,  error: errorSubscriptionLastSync */
+    } = useSubscription(subscriptionLastSync, variables, {
+      fetchPolicy: "network-only"
+    });
+
+    const {
+      result: resultSubscriptionStartSync /* loading: loadingSubscriptionLastSync,  error: errorSubscriptionLastSync */
+    } = useSubscription(subscriptionStartSync, variables, {
+      fetchPolicy: "network-only"
+    });
+
+    console.log('debugging 123');
+    console.log(resultQuery, variables, state);
+
+    sagas.initBillingFree();
 
     watch(resultQuery, data => {
+      console.log('BEGIN watching resultQuery', data, state);
       if (
         state.accountConnected &&
         (data.account === null ||
@@ -116,6 +141,36 @@ export default {
 
       // $segment.track("metrics_account", data.account);
       sagas.setAccount(data.account);
+    });
+
+    watch(resultSubscriptionAccount, data => {
+      console.log('resultSubscriptionAccount', data);
+      // $segment.track("metrics_upgrade_plan", data.accountUpgraded);
+      sagas.setPlan(data.accountUpgraded);
+    });
+
+    watch(resultSubscriptionFirstSync, data => {
+      // $segment.track(
+      //   "metrics_first_sync_asked_at",
+      //   data.accountFirstSync.first_sync_asked_at
+      // );
+      console.log('resultSubscriptionFirstSync', data);
+      sagas.setStartSyncedAt(data.accountFirstSync.first_sync_asked_at);
+    });
+
+    watch(resultSubscriptionLastSync, data => {
+      // $segment.track("metrics_last_sync_at", data.accountLastSync.last_sync_at);
+      console.log('resultSubscriptionLastSync', data);
+      sagas.setLastSync(data.accountLastSync.last_sync_at);
+    });
+
+    watch(resultSubscriptionStartSync, data => {
+      // $segment.track(
+      //   "metrics_start_sync_at",
+      //   data.accountStartSync.start_sync_at
+      // );
+      console.log('resultSubscriptionStartSync', data);
+      sagas.setStartSync(data.accountStartSync.start_sync_at);
     });
 
     const goToPlans = () => {

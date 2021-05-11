@@ -14,7 +14,7 @@ export default {
     HelloWorld
   },
   setup(props, context) {
-    console.log('demo rbm');
+    console.log('demo rbm 1');
     const saga = { ...mapSagas({ retrieveToken: "retrieveToken" }, context) };
     saga.retrieveToken();
   }

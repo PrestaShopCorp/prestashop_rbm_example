@@ -6,11 +6,14 @@ require 'vendor/autoload.php';
 
 use PrestaShop\PsAccountsInstaller\Installer\Exception\ModuleVersionException;
 use PrestaShop\PsAccountsInstaller\Installer\Exception\ModuleNotInstalledException;
+use ContextCore as Context;
 
 class Foobar extends Module
 {
 
     private $container;
+    private $ajaxSettingsController;
+    private $psVersionIs17;
 
     public function __construct()
     {
@@ -23,6 +26,8 @@ class Foobar extends Module
             'min' => '1.6',
             'max' => _PS_VERSION_
         ];
+        $this->psVersionIs17 = (bool) version_compare(_PS_VERSION_, '1.7', '>=');
+        $this->ajaxSettingsController = 'AdminAjaxSettings';
         $this->bootstrap = true;
 
         parent::__construct();
@@ -82,6 +87,7 @@ class Foobar extends Module
                         'moduleName' => $this->name,
                         'controllersLinks' => [
                             'accounts' => $apiUrl,
+                            'settingsAjax' => $this->getAdminLink($this->ajaxSettingsController),
                         ],
                         'shop' => [
                             'shopUuid' => $shopUuid,
@@ -123,5 +129,29 @@ class Foobar extends Module
         }
 
         return $this->container->getService($serviceName);
+    }
+
+    /**
+     * Adapter for getAdminLink from prestashop link class
+     *
+     * @param string $controller controller name
+     * @param bool $withToken include or not the token in the url
+     * @param array $sfRouteParams
+     * @param array $params
+     *
+     * @return string
+     */
+    public function getAdminLink($controller, $withToken = true, $sfRouteParams = [], $params = [])
+    {
+        if ($this->psVersionIs17) {
+            return Context::getContext()->link->getAdminLink($controller, $withToken, $sfRouteParams, $params);
+        }
+
+        $paramsAsString = '';
+        foreach ($params as $key => $value) {
+            $paramsAsString .= "&$key=$value";
+        }
+
+        return Tools::getShopDomainSsl(true) . __PS_BASE_URI__ . basename(_PS_ADMIN_DIR_) . '/' . Context::getContext()->link->getAdminLink($controller, $withToken) . $paramsAsString;
     }
 }

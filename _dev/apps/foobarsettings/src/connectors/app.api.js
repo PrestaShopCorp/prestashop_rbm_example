@@ -34,51 +34,51 @@ function prepareForm(params) {
 
 export default {};
 
-export function gaLogOut(url) {
-  const requestParams = {
-    action: "LogOut",
-    controller: "AdminAjaxSettings"
-  };
-  const form = prepareForm(requestParams);
-  request.createApi();
-  return request.api.post(url, form);
-}
+// export function gaLogOut(url) {
+//   const requestParams = {
+//     action: "LogOut",
+//     controller: "AdminAjaxSettings"
+//   };
+//   const form = prepareForm(requestParams);
+//   request.createApi();
+//   return request.api.post(url, form);
+// }
 
-export function selectAccountAnalytics(url, params) {
-  const requestParams = {
-    action: "SelectAccountAnalytics",
-    controller: "AdminAjaxSettings",
-    data: {
-      webPropertyId: params.webPropertyId,
-      viewId: params.viewId,
-      username: params.username,
-      webPropertyName: params.webPropertyName
-    }
-  };
-  const form = prepareForm(requestParams);
-  request.createApi();
-  return request.api.post(url, form);
-}
+// export function selectAccountAnalytics(url, params) {
+//   const requestParams = {
+//     action: "SelectAccountAnalytics",
+//     controller: "AdminAjaxSettings",
+//     data: {
+//       webPropertyId: params.webPropertyId,
+//       viewId: params.viewId,
+//       username: params.username,
+//       webPropertyName: params.webPropertyName
+//     }
+//   };
+//   const form = prepareForm(requestParams);
+//   request.createApi();
+//   return request.api.post(url, form);
+// }
 
-export function getAvailableGoogleTags(url) {
-  const requestParams = {
-    action: "GetExistingGoogleTags",
-    controller: "AdminAjaxSettings"
-  };
-  const form = prepareForm(requestParams);
-  request.createApi();
-  return request.api.post(url, form);
-}
+// export function getAvailableGoogleTags(url) {
+//   const requestParams = {
+//     action: "GetExistingGoogleTags",
+//     controller: "AdminAjaxSettings"
+//   };
+//   const form = prepareForm(requestParams);
+//   request.createApi();
+//   return request.api.post(url, form);
+// }
 
-export function gaRefresh(url) {
-  const requestParams = {
-    action: "RefreshGA",
-    controller: "AdminAjaxSettings"
-  };
-  const form = prepareForm(requestParams);
-  request.createApi();
-  return request.api.post(url, form);
-}
+// export function gaRefresh(url) {
+//   const requestParams = {
+//     action: "RefreshGA",
+//     controller: "AdminAjaxSettings"
+//   };
+//   const form = prepareForm(requestParams);
+//   request.createApi();
+//   return request.api.post(url, form);
+// }
 
 export function getListProperty(url) {
   const requestParams = {
@@ -90,20 +90,20 @@ export function getListProperty(url) {
   return request.api.post(url, form);
 }
 
-export function installModuleGA(url) {
-  request.createApi();
-  return request.api.post(url);
-}
+// export function installModuleGA(url) {
+//   request.createApi();
+//   return request.api.post(url);
+// }
 
-export function toggleDashboardModules(url) {
-  const requestParams = {
-    action: "ToggleDashboardModules",
-    controller: "AdminAjaxDashboard"
-  };
-  const form = prepareForm(requestParams);
-  request.createApi();
-  return request.api.post(url, form);
-}
+// export function toggleDashboardModules(url) {
+//   const requestParams = {
+//     action: "ToggleDashboardModules",
+//     controller: "AdminAjaxDashboard"
+//   };
+//   const form = prepareForm(requestParams);
+//   request.createApi();
+//   return request.api.post(url, form);
+// }
 
 export function initBillingFree(url) {
   const requestParams = {
@@ -132,7 +132,7 @@ export function getSubscription(shopId, moduleName) {
 export function createFreeSubscription(shopId, moduleName) {
   const payload = {
     module: moduleName,
-    plan_id: "metrics-free"
+    plan_id: "default-free"
   };
   request.createApi();
   return request.api.post(

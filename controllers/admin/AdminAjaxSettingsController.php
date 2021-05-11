@@ -23,7 +23,7 @@
 class AdminAjaxSettingsController extends ModuleAdminController
 {
     /**
-     * @var Ps_metrics
+     * @var Foobar
      */
     public $module;
 
@@ -57,7 +57,7 @@ class AdminAjaxSettingsController extends ModuleAdminController
             $ip_address = $_SERVER['REMOTE_ADDR'];
         }
 
-        $result = $billingService->subscribeToFreePlan($this->module->name, 'metrics-free', false, $ip_address);
+        $result = $billingService->subscribeToFreePlan($this->module->name, 'foobar-free', false, $ip_address);
 
         if (empty($result)) {
             $this->ajaxDie($this->jsonEncode([
@@ -89,7 +89,7 @@ class AdminAjaxSettingsController extends ModuleAdminController
             return $json;
         }
 
-        $this->loggerHelper->addLog('[PS_METRICS] Unable to encode Json', 3);
+        // $this->loggerHelper->addLog('[PS_METRICS] Unable to encode Json', 3);
 
         return '';
     }

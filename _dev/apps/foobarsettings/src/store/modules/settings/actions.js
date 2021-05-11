@@ -18,11 +18,11 @@
  */
 import { call, put } from "@/lib/store-saga";
 import {
-  gaLogOut,
-  selectAccountAnalytics,
-  getAvailableGoogleTags,
-  gaRefresh,
-  installModuleGA,
+  // gaLogOut,
+  // selectAccountAnalytics,
+  // getAvailableGoogleTags,
+  // gaRefresh,
+  // installModuleGA,
   getListProperty,
   initBillingFree,
   retrieveToken
@@ -105,6 +105,7 @@ export default {
       initBillingFree,
       store.rootState.app.controllersLinks.settingsAjax
     );
+    console.log('initBillingFree', store, response);
     if (response.success) {
       yield put("setBillingSuccess", response.billing);
     } else {
@@ -118,10 +119,12 @@ export default {
   *retrieveToken(store) {
     const response = yield call(
       retrieveToken,
-      store.state.controllersLinks.accounts
+      // store.state.controllersLinks.accounts
+      store.rootState.app.controllersLinks.accounts
     );
     if(response !== null){
-      yield ("setToken", response);
+      console.log('retrieveToken', response);
+      yield put("setToken", response);
     }
   },
   *selectAccount(store, payload) {

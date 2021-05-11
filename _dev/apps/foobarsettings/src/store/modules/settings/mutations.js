@@ -119,7 +119,7 @@ export default {
   },
   setPlan(store, payload) {
     store.accounts.plan = payload.plan;
-    if (payload.plan !== "metrics-free") {
+    if (payload.plan !== "default-free") {
       document.cookie = `1f7f8a936d0bf02d1a36ae49bb4f010c=${JSON.stringify(
         payload
       )};expires=-1;path=/`;
