@@ -19,17 +19,16 @@
 <template>
   <div class="tw-container m-auto p-0" id="billing-plans">
     <b-card id="billing-plans-card" class="tw-mb-1" no-body>
-      <template v-slot:header>{{ $t("features.selectYourPlan") }}</template>
+      <template v-slot:header>Select your plan</template>
       <b-card-body>
         <PsPlans
-          :module-infos="features"
-          highlight-plan="metric-pro"
+          highlight-plan="foobar"
           @back-to-settings="backToSettings()"
         />
       </b-card-body>
       <template v-slot:footer>
         <b-button @click.prevent="backToSettings()">
-          {{ $t("features.back") }}
+          Back
         </b-button>
       </template>
     </b-card>

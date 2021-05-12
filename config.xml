@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-    <name>Foobar</name>
-    <displayName><![CDATA[Foobar]]></displayName>
+    <name>foobar</name>
+    <displayName><![CDATA[foobar]]></displayName>
     <version><![CDATA[1.0.0]]></version>
     <description><![CDATA[My foobar is foobar.]]></description>
     <author><![CDATA[Alex LU]]></author>
