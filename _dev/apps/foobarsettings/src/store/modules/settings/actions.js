@@ -18,8 +18,7 @@
  */
 import { call, put } from "@/lib/store-saga";
 import {
-  initBillingFree,
-  retrieveToken
+  initBillingFree
 } from "@/connectors/app.api";
 
 export default {
@@ -30,7 +29,6 @@ export default {
       initBillingFree,
       store.rootState.app.controllersLinks.settingsAjax
     );
-    console.log('initBillingFree', store, response);
     if (response.success) {
       yield put("setBillingSuccess", response.billing);
     } else {
@@ -40,15 +38,5 @@ export default {
   },
   *setDisplayModulePlans(store, payload) {
     yield put("setDisplayModulePlans", payload);
-  },
-  *retrieveToken(store) {
-    const response = yield call(
-      retrieveToken,
-      store.rootState.app.controllersLinks.accounts
-    );
-    if(response !== null){
-      console.log('retrieveToken', response);
-      yield put("setToken", response);
-    }
-  },
+  }
 };

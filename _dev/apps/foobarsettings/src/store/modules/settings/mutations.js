@@ -29,8 +29,5 @@ export default {
   },
   setDisplayModulePlans(store, payload) {
     store.displayModulePlans = payload;
-  },
-  setToken(store, payload) {
-    sessionStorage.setItem("metricsToken", payload.token);
-  },
+  }
 };

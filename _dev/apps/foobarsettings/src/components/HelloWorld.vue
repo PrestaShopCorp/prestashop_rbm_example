@@ -71,7 +71,6 @@ export default {
 
     // sagas.initBillingFree();
 
-
     const goToPlans = () => {
       console.log('hello world goToPlans');
       sagas.setDisplayModulePlans(true);

@@ -6,7 +6,6 @@
 
 <script>
 import HelloWorld from "@/components/HelloWorld.vue";
-import { mapSagas } from "@/lib/store-saga";
 
 export default {
   name: 'App',
@@ -15,8 +14,6 @@ export default {
   },
   setup(props, context) {
     console.log('demo rbm 1');
-    const saga = { ...mapSagas({ retrieveToken: "retrieveToken" }, context) };
-    saga.retrieveToken();
   }
 }
 </script>

@@ -16,8 +16,8 @@ import "@/assets/index.css";
 Vue.use(VueCompositionAPI);
 Vue.use(BootstrapVue, BootstrapVueIcons);
 Vue.use(VueCollapse);
-Vue.use(psAccountsVueComponents);
 Vue.use(StoreSaga, { store });
+Vue.use(psAccountsVueComponents);
 Vue.use(psBillingVueComponents, {store, i18n});
 
 Vue.config.productionTip = false;

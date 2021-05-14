@@ -43,8 +43,3 @@ export function initBillingFree(url) {
   request.createApi();
   return request.api.post(url, form);
 }
-
-export function retrieveToken(url) {
-  request.createApi();
-  return request.api.get(`${url}&action=GetOrRefreshToken`);
-}
