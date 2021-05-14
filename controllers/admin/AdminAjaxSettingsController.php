@@ -57,7 +57,7 @@ class AdminAjaxSettingsController extends ModuleAdminController
             $ip_address = $_SERVER['REMOTE_ADDR'];
         }
 
-        $result = $billingService->subscribeToFreePlan($this->module->name, 'foobar-free', false, $ip_address);
+        $result = $billingService->subscribeToFreePlan($this->module->name, 'default-free', false, $ip_address);
 
         if (empty($result)) {
             $this->ajaxDie($this->jsonEncode([
