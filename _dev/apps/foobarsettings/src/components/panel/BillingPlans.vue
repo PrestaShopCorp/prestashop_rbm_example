@@ -17,11 +17,12 @@
   * International Registered Trademark & Property of PrestaShop SA
   *-->
 <template>
-  <div class="tw-container m-auto p-0" id="billing-plans">
+  <div class="p-0 m-auto tw-container" id="billing-plans">
     <b-card id="billing-plans-card" class="tw-mb-1" no-body>
       <template v-slot:header>Select your plan</template>
       <b-card-body>
         <PsPlans
+          :module-infos="features"
           highlight-plan="foobar"
           @back-to-settings="backToSettings()"
         />
@@ -44,7 +45,9 @@ export default {
   },
   computed: {
     features() {
-      return this.$store.state.settings.plans;
+      // Return the module features
+      // ex: return this.$store.state.settings.plans;
+      return [];
     }
   },
   methods: {

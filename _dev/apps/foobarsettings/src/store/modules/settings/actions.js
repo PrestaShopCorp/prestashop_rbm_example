@@ -18,87 +18,12 @@
  */
 import { call, put } from "@/lib/store-saga";
 import {
-  // gaLogOut,
-  // selectAccountAnalytics,
-  // getAvailableGoogleTags,
-  // gaRefresh,
-  // installModuleGA,
-  getListProperty,
   initBillingFree,
   retrieveToken
 } from "@/connectors/app.api";
 
 export default {
-  /* eslint-disable-next-line no-unused-vars */
-  // *installModuleGA(store, payload) {
-  //   yield put("setLoadingInstallModuleGA", true);
-  //   const response = yield call(installModuleGA, payload);
-  //   yield put("setResponseInstallGA", response);
-  //   yield put("setLoadingInstallModuleGA", false);
-  // },
-  /* eslint-disable-next-line no-unused-vars */
-  // *getLogOut(store, payload) {
-  //   yield put("setLoadingLogOut", true);
-  //   const response = yield call(
-  //     gaLogOut,
-  //     store.rootState.app.controllersLinks.settingsAjax
-  //   );
-  //   yield put("setLogOut", response);
-  //   yield put("setGaIsOnboarded", response.googleLinked);
-  //   yield put("setLoadingLogOut", false);
-  //   return true;
-  // },
-  /* eslint-disable-next-line no-unused-vars */
-  // *refreshAnalyticsAccount(store, payload) {
-  //   yield put("setLoadingRefreshGA", true);
-  //   const response = yield call(
-  //     gaRefresh,
-  //     store.rootState.app.controllersLinks.settingsAjax
-  //   );
-  //   yield put("setRefresh", response);
-  //   yield put("setLoadingRefreshGA", false);
-  //   return true;
-  // },
   // /* eslint-disable-next-line no-unused-vars */
-  // *selectAccountAnalytics(store, payload) {
-  //   if (store.state.googleAccount.webPropertyId !== payload.webPropertyId) {
-  //     yield put("setLoadingSelectAccountAnalytics", true);
-  //     const response = yield call(
-  //       selectAccountAnalytics,
-  //       store.rootState.app.controllersLinks.settingsAjax,
-  //       payload
-  //     );
-  //     yield put("selectAccountAnalytics", response);
-  //     yield put("setLoadingSelectAccountAnalytics", false);
-  //   }
-  // },
-  // /* eslint-disable-next-line no-unused-vars */
-  // *getAvailableGoogleTags(store) {
-  //   yield put("setLoadingAvailableGoogleTag", true);
-  //   const response = yield call(
-  //     getAvailableGoogleTags,
-  //     store.rootState.app.controllersLinks.settingsAjax
-  //   );
-  //   yield put("setGTAAvailable", response.analytics);
-  //   yield put("setGTMAvailable", response.manager);
-  //   yield put("setLoadingAvailableGoogleTag", false);
-  // },
-  // /* eslint-disable-next-line no-unused-vars */
-  *getListProperty(store) {
-    yield put("setLoadingListProperty", true);
-    const response = yield call(
-      getListProperty,
-      store.rootState.app.controllersLinks.settingsAjax
-    );
-    if (response.success) {
-      yield put("setListPropertySuccess", response.listProperty);
-      yield put("setListPropertyError", "");
-    } else {
-      yield put("setListPropertyError", response.error);
-    }
-    yield put("setLoadingListProperty", false);
-    return Object.keys(response.listProperty).length;
-  },
   *initBillingFree(store) {
     yield put("setLoadingBilling", true);
     const response = yield call(
@@ -119,7 +44,6 @@ export default {
   *retrieveToken(store) {
     const response = yield call(
       retrieveToken,
-      // store.state.controllersLinks.accounts
       store.rootState.app.controllersLinks.accounts
     );
     if(response !== null){
@@ -127,19 +51,4 @@ export default {
       yield put("setToken", response);
     }
   },
-  *selectAccount(store, payload) {
-    yield put("setAccount", payload);
-  },
-  *setPlan(store, payload) {
-    yield put("setPlan", payload);
-  },
-  *setStartSync(store, payload) {
-    yield put("setStartSync", payload);
-  },
-  *setLastSync(store, payload) {
-    yield put("setLastSync", payload);
-  },
-  *setStartSyncedAt(store, payload) {
-    yield put("setStartSyncedAt", payload);
-  }
 };

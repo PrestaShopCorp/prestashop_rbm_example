@@ -19,7 +19,7 @@
 import request from "@/utils/request";
 import forEach from "lodash/forEach";
 
-const BILLING_API_LOCALHOST = "http://localhost:3000";
+// const BILLING_API_LOCALHOST = "http://localhost:3000";
 
 function prepareForm(params) {
   const form = new FormData();
@@ -34,77 +34,6 @@ function prepareForm(params) {
 
 export default {};
 
-// export function gaLogOut(url) {
-//   const requestParams = {
-//     action: "LogOut",
-//     controller: "AdminAjaxSettings"
-//   };
-//   const form = prepareForm(requestParams);
-//   request.createApi();
-//   return request.api.post(url, form);
-// }
-
-// export function selectAccountAnalytics(url, params) {
-//   const requestParams = {
-//     action: "SelectAccountAnalytics",
-//     controller: "AdminAjaxSettings",
-//     data: {
-//       webPropertyId: params.webPropertyId,
-//       viewId: params.viewId,
-//       username: params.username,
-//       webPropertyName: params.webPropertyName
-//     }
-//   };
-//   const form = prepareForm(requestParams);
-//   request.createApi();
-//   return request.api.post(url, form);
-// }
-
-// export function getAvailableGoogleTags(url) {
-//   const requestParams = {
-//     action: "GetExistingGoogleTags",
-//     controller: "AdminAjaxSettings"
-//   };
-//   const form = prepareForm(requestParams);
-//   request.createApi();
-//   return request.api.post(url, form);
-// }
-
-// export function gaRefresh(url) {
-//   const requestParams = {
-//     action: "RefreshGA",
-//     controller: "AdminAjaxSettings"
-//   };
-//   const form = prepareForm(requestParams);
-//   request.createApi();
-//   return request.api.post(url, form);
-// }
-
-export function getListProperty(url) {
-  const requestParams = {
-    action: "ListProperty",
-    controller: "AdminAjaxSettings"
-  };
-  const form = prepareForm(requestParams);
-  request.createApi();
-  return request.api.post(url, form);
-}
-
-// export function installModuleGA(url) {
-//   request.createApi();
-//   return request.api.post(url);
-// }
-
-// export function toggleDashboardModules(url) {
-//   const requestParams = {
-//     action: "ToggleDashboardModules",
-//     controller: "AdminAjaxDashboard"
-//   };
-//   const form = prepareForm(requestParams);
-//   request.createApi();
-//   return request.api.post(url, form);
-// }
-
 export function initBillingFree(url) {
   const requestParams = {
     action: "BillingFree",
@@ -113,32 +42,6 @@ export function initBillingFree(url) {
   const form = prepareForm(requestParams);
   request.createApi();
   return request.api.post(url, form);
-}
-
-export function getCustomer(shopId) {
-  request.createApi();
-  return request.api.get(`${BILLING_API_LOCALHOST}/shops/${shopId}`);
-}
-export function createCustomer(shopId, payload) {
-  request.createApi();
-  return request.api.post(`${BILLING_API_LOCALHOST}/shops/${shopId}`, payload);
-}
-export function getSubscription(shopId, moduleName) {
-  request.createApi();
-  return request.api.get(
-    `${BILLING_API_LOCALHOST}/shops/${shopId}/subscriptions/${moduleName}`
-  );
-}
-export function createFreeSubscription(shopId, moduleName) {
-  const payload = {
-    module: moduleName,
-    plan_id: "default-free"
-  };
-  request.createApi();
-  return request.api.post(
-    `${BILLING_API_LOCALHOST}/shops/${shopId}/subscriptions/${moduleName}`,
-    payload
-  );
 }
 
 export function retrieveToken(url) {
