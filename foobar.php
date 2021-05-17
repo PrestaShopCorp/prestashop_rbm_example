@@ -37,7 +37,7 @@ class Foobar extends Module
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
-        $this->template_dir = '../../../../modules/' . $this->name . '/views/templates/admin/';
+        $this->template_dir = _PS_MODULE_DIR_ . $this->name . '/views/templates/admin/';
 
         if ($this->container === null) {
             $this->container = new \PrestaShop\ModuleLibServiceContainer\DependencyInjection\ServiceContainer($this->name, $this->getLocalPath());
