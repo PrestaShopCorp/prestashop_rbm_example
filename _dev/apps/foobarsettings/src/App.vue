@@ -12,7 +12,7 @@ export default {
   components: {
     HelloWorld
   },
-  setup(props, context) {
+  setup() {
     console.log('demo rbm 1');
   }
 }

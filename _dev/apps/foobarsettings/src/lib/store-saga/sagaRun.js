@@ -21,7 +21,7 @@ function isGenFunc(func) {
   }
 
   export default function sagaRun(genFunc, store = {}) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const iter = typeof genFunc === "function" ? genFunc(store) : genFunc;
       function runNext(iter, response = null) {
         const nextRun = iter.next(response);

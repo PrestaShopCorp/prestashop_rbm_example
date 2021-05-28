@@ -1,4 +1,4 @@
 export default {
-    getDisplayModulePlans: state => state.displayModulePlans,
+    displayModulePlans: state => state.displayModulePlans,
     loadingBilling: state => state.loadingBilling,
 };

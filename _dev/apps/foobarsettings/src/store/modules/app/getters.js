@@ -18,6 +18,4 @@
  */
 
 export default {
-    psAccountsIsOnboarded: state =>
-        state.user.emailIsValidated && state.user.email !== "",
 };

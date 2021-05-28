@@ -54,6 +54,9 @@ export default {
     backToSettings() {
       this.$emit("back-to-settings");
     }
+  },
+  created() {
+    console.log(this)
   }
 };
 </script>
