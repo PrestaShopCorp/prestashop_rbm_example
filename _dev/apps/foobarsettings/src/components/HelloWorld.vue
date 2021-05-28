@@ -38,10 +38,6 @@ import { PsBilling } from "@prestashopcorp/prestashop_billing_vue_components";
 import { mapGetters, mapActions, mapState } from 'vuex'
 import moduleLogo from "@/assets/icon-ps-metrics.png";
 
-
-// import { computed, reactive } from "@vue/composition-api";
-// import { mapSagas } from "@/lib/store-saga";
-
 export default {
   name: 'HelloWorld',
   components: {
@@ -51,7 +47,8 @@ export default {
   },
   computed: {
     ...mapState({
-      appInfo: state => state.app
+      appInfo: state => state.app,
+      billingInfo: state => state.billing
     }),
     ...mapGetters({
       initialize: 'loadingBilling',
@@ -75,56 +72,18 @@ export default {
     }
   },
   mounted() {
-    this.$billingEmitter.emit('create:subscription', {data: 'asd'})
+    if (localStorage.getItem('customer_sub_created') !== 'ok') {
+      this.$billingEmitter.emit('init:billing', {
+        'CREATE_CUSTOMER': {
+          created_from_ip: this.appInfo.user.created_from_ip,
+        },
+        'CREATE_SUBSCRIPTION': {
+          planId: 'default-free'
+        }
+      })
+      localStorage.setItem('customer_sub_created', 'ok')
+    }
   },
-  // setup(props, context) {
-  //   // console.log(context)
-  //   // context.root.$billingEmitter.emit('create:subscription', {data: 'asd'})
-  //   // Vue.$billingEmitter.emit('create:subscription', {data: 'asd'})
-  //   setTimeout(() => {
-  //     console.log(context)
-  //     context.root.$billingEmitter.emit('create:subscription', {data: 'asdddd'})
-  //   }, 3000)
-  //   const {
-  //     root: { $store }
-  //   } = context;
-  //   const state = reactive({
-  //     initialize: computed(() => $store.getters.loadingBilling),
-  //     moduleName: computed(() => $store.state.app.moduleName),
-  //     accountApi: computed(() => $store.state.app.controllersLinks.accounts),
-  //     shopUuid: computed(() => $store.state.app.shop.shopUuid),
-  //     getDisplayModulePlans: computed(
-  //       () => $store.getters.displayModulePlans
-  //     ),
-  //     accountConnected: computed(() => $store.getters.psAccountsIsOnboarded),
-  //   });
-  //   const sagas = mapSagas(
-  //     {
-  //       setDisplayModulePlans: "setDisplayModulePlans",
-  //       initBillingFree: "initBillingFree"
-  //     },
-  //     context
-  //   );
-
-  //   // sagas.initBillingFree();
-
-  //   const goToPlans = () => {
-  //     console.log('hello world goToPlans');
-  //     sagas.setDisplayModulePlans(true);
-  //   };
-  //   const backToSettings = () => {
-  //     console.log('hello world backToSettings');
-  //     sagas.setDisplayModulePlans(false);
-  //   };
-
-  //   return {
-  //     ...sagas,
-  //     state,
-  //     goToPlans,
-  //     backToSettings,
-  //     moduleLogo
-  //   };
-  // }
 }
 </script>
 

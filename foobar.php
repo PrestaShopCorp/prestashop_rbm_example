@@ -81,6 +81,14 @@ class Foobar extends Module
             $email = $psAccountsService->getEmail();
             $emailIsValidated = $psAccountsService->isEmailValidated();
 
+            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) { //whether ip is from proxy
+                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else { //whether ip is from remote address
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+            }
+
             Media::addJsDef([
                 'storePsFoobar' => [
                     'context' => [
@@ -93,6 +101,7 @@ class Foobar extends Module
                             'shopUuid' => $shopUuid,
                         ],
                         'user' => [
+                            'created_from_ip' => $ip_address,
                             'email' => $email,
                             'emailIsValidated' => $emailIsValidated,
                         ]
