@@ -77,6 +77,7 @@ export default {
           created_from_ip: this.appInfo.user.created_from_ip,
         },
         'CREATE_SUBSCRIPTION': {
+          // this should be dynamic. Change this to the module name passed from php module perhaps
           planId: 'default-free'
         }
       })
