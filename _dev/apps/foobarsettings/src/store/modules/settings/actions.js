@@ -16,30 +16,6 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  * International Registered Trademark & Property of PrestaShop SA
  */
-// import { call, put } from "@/lib/store-saga";
-// import {
-//   initBillingFree
-// } from "@/connectors/app.api";
-
-// export default {
-//   // /* eslint-disable-next-line no-unused-vars */
-//   *initBillingFree(store) {
-//     yield put("setLoadingBilling", true);
-//     const response = yield call(
-//       initBillingFree,
-//       store.rootState.app.controllersLinks.settingsAjax
-//     );
-//     if (response.success) {
-//       yield put("setBillingSuccess", response.billing);
-//     } else {
-//       yield put("setBillingError", "error billing");
-//     }
-//     yield put("setLoadingBilling", false);
-//   },
-//   *setDisplayModulePlans(store, payload) {
-//     yield put("setDisplayModulePlans", payload);
-//   }
-// };
 
 export const SET_DISPLAY_MODULE_PLANS = 'SET_DISPLAY_MODULE_PLANS'
 
