@@ -59,6 +59,16 @@ class Foobar extends Module
         return true;
     }
 
+    /**
+     * Get the isoCode from the context language, if null, send 'en' as default value
+     *
+     * @return string
+     */
+    public function getLanguageIsoCode()
+    {
+        return $this->context->language !== null ? $this->context->language->iso_code : 'en';
+    }
+
     public function getContent()
     {
         $facade = $this->getService('ps_accounts.facade');
@@ -69,7 +79,6 @@ class Foobar extends Module
 
         $this->context->smarty->assign('pathSettingsVendor', $this->getPathUri() . 'views/js/chunk-vendors-foobar-settings.' . $this->version . '.js');
         $this->context->smarty->assign('pathSettingsApp', $this->getPathUri() . 'views/js/app-foobar-settings.' . $this->version . '.js');
-
 
         try {
             $psAccountsService = $facade->getPsAccountsService();
@@ -90,9 +99,14 @@ class Foobar extends Module
             Media::addJsDef([
                 'storePsFoobar' => [
                     'context' => [
+                        'version_ps' => _PS_VERSION_,
+                        'version_module' => $this->version,
                         'moduleName' => $this->name,
                         'controllersLinks' => [
                             'accounts' => $apiUrl,
+                        ],
+                        'i18n' => [
+                            'isoCode' => $this->getLanguageIsoCode(),
                         ],
                         'shop' => [
                             'shopUuid' => $shopUuid,

@@ -23,7 +23,11 @@
       <b-card-body>
         <PsPlans
           :module-infos="features"
-          highlight-plan="foobar"
+          highlight-plan="default-advanced"
+          :account-api="accountApi"
+          :module-name="moduleName"
+          :module-logo="moduleLogo"
+          :shop-uuid="shopUuid"
           @back-to-settings="backToSettings()"
         />
       </b-card-body>
@@ -43,11 +47,69 @@ export default {
   components: {
     PsPlans
   },
+  props:{
+    accountApi:{
+      type: String,
+      default: ''
+    },
+    moduleName:{
+      type: String,
+      default: ''
+    },
+    moduleLogo:{
+      type: String,
+      default: ''
+    },
+    shopUuid:{
+      type: String,
+      default: ''
+    }
+  },
   computed: {
     features() {
       // Return the module features
       // ex: return this.$store.state.settings.plans;
-      return [];
+      return [
+        {
+          "title": "Lorem ipsum 1",
+          "feature": [{
+              "id": "default-free",
+              "type": "icon",
+              "value": true
+            },{
+              "id": "default-advanced",
+              "type": "icon",
+              "value": true
+          }]
+        },
+        {
+          "title": "Lorem ipsum 2",
+          "bold": true,
+          "feature": [{
+              "id": "default-free",
+              "type": "icon",
+              "value": false
+            },{
+              "id": "default-advanced",
+              "type": "icon",
+              "value": true
+          }]
+        },
+        {
+          "title": "Lorem ipsum 3",
+          "bold": true,
+          "feature": [{
+              "id": "default-free",
+              "type": "text",
+              "value": "lorem"
+            },{
+              "id": "default-advanced",
+              "type": "text",
+              "value": "ipsum",
+              "bold": true,
+          }]
+        },
+      ]
     }
   },
   methods: {

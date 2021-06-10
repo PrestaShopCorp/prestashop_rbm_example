@@ -24,6 +24,10 @@
 
     <section v-else>
       <BillingPlans
+        :account-api="appInfo.controllersLinks.accounts"
+        :module-name="appInfo.moduleName"
+        :module-logo="moduleLogo"
+        :shop-uuid="appInfo.shop.shopUuid"
         key="display-module-plan"
         @back-to-settings="backToSettings()"
       />
