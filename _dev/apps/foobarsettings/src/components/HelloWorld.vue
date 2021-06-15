@@ -15,6 +15,7 @@
               :module-name="appInfo.moduleName"
               :module-logo="moduleLogo"
               :shop-uuid="appInfo.shop.shopUuid"
+              :email-support="appInfo.user.emailSupport"
               @display-module-plans="goToPlans()"
             />
           </template>
@@ -28,6 +29,7 @@
         :module-name="appInfo.moduleName"
         :module-logo="moduleLogo"
         :shop-uuid="appInfo.shop.shopUuid"
+        :email-support="appInfo.user.emailSupport"
         key="display-module-plan"
         @back-to-settings="backToSettings()"
       />

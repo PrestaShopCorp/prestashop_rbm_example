@@ -28,6 +28,7 @@
           :module-name="moduleName"
           :module-logo="moduleLogo"
           :shop-uuid="shopUuid"
+          :email-support="emailSupport"
           @back-to-settings="backToSettings()"
         />
       </b-card-body>
@@ -62,6 +63,11 @@ export default {
     },
     shopUuid:{
       type: String,
+      default: ''
+    },
+    emailSupport: {
+      type: String,
+      required: true,
       default: ''
     }
   },

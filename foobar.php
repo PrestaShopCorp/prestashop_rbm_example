@@ -13,6 +13,7 @@ class Foobar extends Module
 
     private $container;
     private $psVersionIs17;
+    private $emailSupport;
 
     public function __construct()
     {
@@ -20,6 +21,7 @@ class Foobar extends Module
         $this->tab = 'advertising_marketing';
         $this->version = '1.0.0';
         $this->author = 'Alex LU';
+        $this->emailSupport = 'mail@support.org';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = [
             'min' => '1.6',
@@ -115,6 +117,7 @@ class Foobar extends Module
                             'created_from_ip' => $ip_address,
                             'email' => $email,
                             'emailIsValidated' => $emailIsValidated,
+                            'emailSupport' => $this->emailSupport,
                         ]
                     ]
                 ]
