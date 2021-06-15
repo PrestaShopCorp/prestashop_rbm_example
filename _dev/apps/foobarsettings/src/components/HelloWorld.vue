@@ -9,13 +9,15 @@
             </div>
           </template>
           <template v-slot:account-footer>
-            <PsBilling
+            <!-- <PsBilling
               :initialize="initialize"
               :account-api="appInfo.controllersLinks.accounts"
               :module-name="appInfo.moduleName"
               :module-logo="moduleLogo"
               :shop-uuid="appInfo.shop.shopUuid"
-              :email-support="appInfo.user.emailSupport"
+              @display-module-plans="goToPlans()"
+            /> -->
+            <PsBilling
               @display-module-plans="goToPlans()"
             />
           </template>
@@ -29,7 +31,6 @@
         :module-name="appInfo.moduleName"
         :module-logo="moduleLogo"
         :shop-uuid="appInfo.shop.shopUuid"
-        :email-support="appInfo.user.emailSupport"
         key="display-module-plan"
         @back-to-settings="backToSettings()"
       />
@@ -59,6 +60,11 @@ export default {
       initialize: 'loadingBilling',
       displayModulePlans: 'displayModulePlans',
     }),
+  },
+  provide() {
+    return {
+      emailSupport: this.appInfo.user.emailSupport
+    }
   },
   data() {
     return {
