@@ -117,8 +117,5 @@ export default {
       this.$emit("back-to-settings");
     }
   },
-  created() {
-    console.log(this)
-  }
 };
 </script>

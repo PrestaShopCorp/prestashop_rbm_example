@@ -9,17 +9,17 @@
             </div>
           </template>
           <template v-slot:account-footer>
-            <!-- <PsBilling
+            <PsBilling
               :initialize="initialize"
               :account-api="appInfo.controllersLinks.accounts"
               :module-name="appInfo.moduleName"
               :module-logo="moduleLogo"
               :shop-uuid="appInfo.shop.shopUuid"
               @display-module-plans="goToPlans()"
-            /> -->
-            <PsBilling
-              @display-module-plans="goToPlans()"
             />
+            <!-- <PsBilling
+              @display-module-plans="goToPlans()"
+            /> -->
           </template>
         </PsAccounts>
       </div>
