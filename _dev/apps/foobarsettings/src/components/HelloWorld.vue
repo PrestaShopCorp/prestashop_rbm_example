@@ -54,7 +54,8 @@ export default {
   },
   computed: {
     ...mapState({
-      appInfo: state => state.app
+      appInfo: state => state.app,
+      billingInfo: state => state.billing
     }),
     ...mapGetters({
       initialize: 'loadingBilling',
