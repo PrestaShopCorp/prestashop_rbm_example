@@ -17,14 +17,15 @@
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
  *}
 
-<link href="https://js.chargebee.com/v2/chargebee.js" rel=preload as=script>
+{* <link href="https://js.chargebee.com/v2/chargebee.js" rel=preload as=script> *}
 <link href="{$pathSettingsVendor|escape:'htmlall':'UTF-8'}" rel=preload as=script>
 <link href="{$pathSettingsApp|escape:'htmlall':'UTF-8'}" rel=preload as=script>
 
 <div id="app"></div>
 <script src="{$pathSettingsVendor|escape:'htmlall':'UTF-8'}"></script>
 <script src="{$pathSettingsApp|escape:'htmlall':'UTF-8'}"></script>
-<script src="https://js.chargebee.com/v2/chargebee.js"></script>
+{* <script src="{$urlAccountsVueCdn|escape:'htmlall':'UTF-8'}" type="text/javascript"></script> *}
+{* <script src="https://js.chargebee.com/v2/chargebee.js"></script> *}
 
 <style>
   /** Hide native multistore module activation panel, because of visual regressions on non-bootstrap content */

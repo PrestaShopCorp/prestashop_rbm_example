@@ -81,7 +81,7 @@ class Foobar extends Module
 
         $this->context->smarty->assign('pathSettingsVendor', $this->getPathUri() . 'views/js/chunk-vendors-foobar-settings.' . $this->version . '.js');
         $this->context->smarty->assign('pathSettingsApp', $this->getPathUri() . 'views/js/app-foobar-settings.' . $this->version . '.js');
-
+        // $this->context->smarty->assign('urlAccountsVueCdn', 'https://unpkg.com/prestashop_accounts_vue_components@2/dist/psaccountsVue.umd.min.js');
         try {
             $psAccountsService = $facade->getPsAccountsService();
 
