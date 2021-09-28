@@ -111,7 +111,7 @@ export default {
       });
     },
   },
-  async created() {
+  created() {
     // this.psAccount = require('prestashop_accounts_vue_components').PsAccounts;
     this.context = {
       versionModule: this.appInfo.version_module,
