@@ -89,6 +89,7 @@ class Foobar extends Module
             $apiUrl = $psAccountsService->getAdminAjaxUrl();
             $email = $psAccountsService->getEmail();
             $emailIsValidated = $psAccountsService->isEmailValidated();
+            $refreshToken = $psAccountsService->getRefreshToken();
 
             if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
                 $ip_address = $_SERVER['HTTP_CLIENT_IP'];
@@ -106,6 +107,7 @@ class Foobar extends Module
                         'moduleName' => $this->name,
                         'controllersLinks' => [
                             'accounts' => $apiUrl,
+                            'refreshToken' => $refreshToken
                         ],
                         'i18n' => [
                             'isoCode' => $this->getLanguageIsoCode(),
