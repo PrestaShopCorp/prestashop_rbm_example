@@ -113,12 +113,10 @@ export default {
   },
   created() {
     // this.psAccount = require('prestashop_accounts_vue_components').PsAccounts;
-    console.log('token', this.appInfo.controllersLinks.refreshToken);
     this.context = {
       versionModule: this.appInfo.version_module,
       versionPs: this.appInfo.version_ps,
       moduleName: this.appInfo.moduleName,
-      accountApi: this.appInfo.controllersLinks.accounts,
       refreshToken: this.appInfo.controllersLinks.refreshToken,
       emailSupport: this.appInfo.user.emailSupport,
       i18n: this.appInfo.i18n,

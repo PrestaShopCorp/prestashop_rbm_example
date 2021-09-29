@@ -86,7 +86,6 @@ class Foobar extends Module
             $psAccountsService = $facade->getPsAccountsService();
 
             $shopUuid = $psAccountsService->getShopUuidV4();
-            $apiUrl = $psAccountsService->getAdminAjaxUrl();
             $email = $psAccountsService->getEmail();
             $emailIsValidated = $psAccountsService->isEmailValidated();
             $refreshToken = $psAccountsService->getRefreshToken();
@@ -106,7 +105,6 @@ class Foobar extends Module
                         'version_module' => $this->version,
                         'moduleName' => $this->name,
                         'controllersLinks' => [
-                            'accounts' => $apiUrl,
                             'refreshToken' => $refreshToken
                         ],
                         'i18n' => [
