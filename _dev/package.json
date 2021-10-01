@@ -10,8 +10,13 @@
     },
     "scripts": {
         "dev": "lerna run dev --concurrency 1",
-        "build": "lerna run build --concurrency 1"
+        "build": "lerna run build --concurrency 1",
+        "zip-module": "npm update --prefix ./apps/foobarsettings && npm run build-skip-eslint --prefix ./apps/foobarsettings && node zip-module.js"
     },
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "devDependencies": {
+        "archiver": "^5.3.0",
+        "cpy-cli": "^3.1.1"
+    }
 }

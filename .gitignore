@@ -61,3 +61,6 @@ gcp-token.json
 cloud/.terraform.lock.hcl
 cloud/.terraform/environment
 .terraform
+
+# Module
+foobar.zip
