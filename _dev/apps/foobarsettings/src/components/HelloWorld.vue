@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       moduleLogo,
-      context: {},
+      context: window.storePsFoobar.context,
       type: '',
       // psAccount: null
     }
@@ -113,135 +113,23 @@ export default {
   },
   created() {
     // this.psAccount = require('prestashop_accounts_vue_components').PsAccounts;
-    this.context = {
-      versionModule: this.appInfo.version_module,
-      versionPs: this.appInfo.version_ps,
-      moduleName: this.appInfo.moduleName,
-      refreshToken: this.appInfo.controllersLinks.refreshToken,
-      emailSupport: this.appInfo.user.emailSupport,
-      i18n: this.appInfo.i18n,
-      shop: {
-        uuid: this.appInfo.shop.shopUuid,
-        domain: window.location.host
-      },
-      user: {
-        createdFromIp: this.appInfo.user.created_from_ip,
-        email: this.appInfo.user.email,
-      },
-      moduleLogo: 'https://upload.wikimedia.org/wikipedia/fr/thumb/7/7d/Prestashop-logo.png/280px-Prestashop-logo.png',
-      moduleInfos: [
-            {
-              title: 'Google Analytic synchronization',
-              feature: [
-                {
-                  id: 'default-free',
-                  type: 'icon',
-                  value: true,
-                },
-                {
-                  id: 'default-advanced',
-                  type: 'icon',
-                  value: true,
-                },
-              ],
-            },
-            {
-              title: 'Essentials KPIs',
-              feature: [
-                {
-                  id: 'default-free',
-                  type: 'icon',
-                  value: true,
-                },
-                {
-                  id: 'default-advanced',
-                  type: 'icon',
-                  value: true,
-                },
-              ],
-            },
-            {
-              title: 'Tips to optimize your KPIs',
-              feature: [
-                {
-                  id: 'default-free',
-                  type: 'icon',
-                  value: false,
-                },
-                {
-                  id: 'default-advanced',
-                  type: 'icon',
-                  value: true,
-                },
-              ],
-            },
-            {
-              title: 'Access to detailed data',
-              tooltip: 'Lorem ipsum dolor sit amet.',
-              feature: [
-                {
-                  id: 'default-free',
-                  type: 'icon',
-                  value: false,
-                },
-                {
-                  id: 'default-advanced',
-                  type: 'icon',
-                  value: true,
-                },
-              ],
-            },
-            {
-              title: 'Data history',
-              tooltip: 'Lorem ipsum dolor sit amet.',
-              feature: [
-                {
-                  id: 'default-free',
-                  type: 'text',
-                  value: '3 months',
-                },
-                {
-                  id: 'default-advanced',
-                  type: 'text',
-                  value: '14 months',
-                },
-              ],
-            },
-            {
-              title: 'Access your realtime data',
-              tooltip: 'Lorem ipsum dolor sit amet.',
-              feature: [
-                {
-                  id: 'default-free',
-                  type: 'icon',
-                  value: false,
-                },
-                {
-                  id: 'default-advanced',
-                  type: 'icon',
-                  value: true,
-                },
-              ],
-            },
-            {
-              title: 'Customized reporting',
-              tooltip: 'Lorem ipsum dolor sit amet.',
-              feature: [
-                {
-                  id: 'default-free',
-                  type: 'icon',
-                  value: false,
-                },
-                {
-                  id: 'default-advanced',
-                  type: 'text',
-                  value: 'Coming soon',
-                  soon: true,
-                },
-              ],
-            },
-        ],
-    };
+    // this.context = {
+    //   versionModule: this.appInfo.version_module,
+    //   versionPs: this.appInfo.version_ps,
+    //   moduleName: this.appInfo.moduleName,
+    //   refreshToken: this.appInfo.refreshToken,
+    //   emailSupport: this.appInfo.user.emailSupport,
+    //   i18n: this.appInfo.i18n,
+    //   shop: {
+    //     uuid: this.appInfo.shop.shopUuid,
+    //     domain: window.location.host
+    //   },
+    //   user: {
+    //     createdFromIp: this.appInfo.user.created_from_ip,
+    //     email: this.appInfo.user.email,
+    //   },
+    //   moduleLogo: 'https://upload.wikimedia.org/wikipedia/fr/thumb/7/7d/Prestashop-logo.png/280px-Prestashop-logo.png'
+    // };
 
   },
   mounted() {

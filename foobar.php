@@ -104,9 +104,7 @@ class Foobar extends Module
                         'version_ps' => _PS_VERSION_,
                         'version_module' => $this->version,
                         'moduleName' => $this->name,
-                        'controllersLinks' => [
-                            'refreshToken' => $refreshToken
-                        ],
+                        'refreshToken' => $refreshToken,
                         'i18n' => [
                             'isoCode' => $this->getLanguageIsoCode(),
                         ],
