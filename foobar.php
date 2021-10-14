@@ -109,7 +109,7 @@ class Foobar extends Module
                             'isoCode' => $this->getLanguageIsoCode(),
                         ],
                         'shop' => [
-                            'shopUuid' => $shopUuid,
+                            'uuid' => $shopUuid,
                         ],
                         'user' => [
                             'created_from_ip' => $ip_address,
