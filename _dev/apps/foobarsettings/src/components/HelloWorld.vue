@@ -17,6 +17,7 @@
         ref="customer"
         :context="context"
         :onOpenModal="openBillingModal"
+        :onEventHook="eventHookHandler"
       />
     </section>
 
@@ -25,7 +26,10 @@
       :context="context"
       :type="type"
       :onCloseModal="closeModal"
+      :onEventHook="eventHookHandler"
     />
+
+    <div v-if="sub && sub.id">Hello world</div>
 
   </div>
 </template>
@@ -40,7 +44,7 @@ import Vue from 'vue';
 import {PsAccounts} from "prestashop_accounts_vue_components";
 import { mapGetters, mapActions, mapState } from 'vuex'
 import moduleLogo from "@/assets/icon-ps-metrics.png";
-import { CustomerComponent, ModalContainerComponent } from "@prestashopcorp/billing-cdc/dist/bundle.umd";
+import { CustomerComponent, ModalContainerComponent, EVENT_HOOK_TYPE } from "@prestashopcorp/billing-cdc/dist/bundle.umd";
 
 // let PsAccounts = window?.psaccountsVue?.PsAccounts;
 // This is a fallback in case the CDN doesn't work properly. If you want to do this
@@ -76,9 +80,9 @@ export default {
   },
   data() {
     return {
-      moduleLogo,
-      context: window.storePsFoobar.context,
+      context: {...window.storePsFoobar.context, moduleLogo},
       type: '',
+      sub: null
       // psAccount: null
     }
   },
@@ -110,6 +114,24 @@ export default {
         },
       });
     },
+    eventHookHandler(type, data) {
+      switch(type) {
+        case EVENT_HOOK_TYPE.BILLING_INITIALIZED:
+            // data structure is: { customer, subscription }
+            console.log('Billing initialized', data);
+            this.sub = data.subscription;
+            break;
+        case EVENT_HOOK_TYPE.SUBSCRIPTION_UPDATED:
+            // data structure is: { customer, subscription, card }
+            console.log('Sub updated', data);
+            this.sub = data.subscription;
+            break;
+        case EVENT_HOOK_TYPE.SUBSCRIPTION_CANCELLED:
+            // data structure is: { customer, subscription }
+            console.log('Sub cancelled', data);
+            break;
+        }
+    }
   },
   created() {
     // this.psAccount = require('prestashop_accounts_vue_components').PsAccounts;
@@ -146,7 +168,7 @@ export default {
     //     },
     //     'CREATE_SUBSCRIPTION': {
     //       // this should be dynamic. Change this to the module name passed from php module perhaps
-    //       planId: 'default-free'
+    //       plan_id: 'default-free'
     //     }
     //   })
     //   localStorage.setItem('customer_sub_created', 'ok')
