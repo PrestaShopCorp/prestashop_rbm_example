@@ -4,8 +4,6 @@ if (!defined('_PS_VERSION_'))
 
 require 'vendor/autoload.php';
 
-use PrestaShop\PsAccountsInstaller\Installer\Exception\ModuleVersionException;
-use PrestaShop\PsAccountsInstaller\Installer\Exception\ModuleNotInstalledException;
 use ContextCore as Context;
 
 class Foobar extends Module
@@ -46,8 +44,7 @@ class Foobar extends Module
 
     public function install()
     {
-        return parent::install() &&
-            $this->getService('ps_accounts.installer')->install();
+        return parent::install() && $this->getService('ps_accounts.installer')->install();
     }
 
     public function uninstall()
@@ -76,62 +73,62 @@ class Foobar extends Module
         $facade = $this->getService('ps_accounts.facade');
         Media::addJsDef([
             'contextPsAccounts' => $facade->getPsAccountsPresenter()
-                ->present($this->name),
+                ->present($this->name)
         ]);
-
         $this->context->smarty->assign('pathSettingsVendor', $this->getPathUri() . 'views/js/chunk-vendors-foobar-settings.' . $this->version . '.js');
         $this->context->smarty->assign('pathSettingsApp', $this->getPathUri() . 'views/js/app-foobar-settings.' . $this->version . '.js');
-        // $this->context->smarty->assign('urlAccountsVueCdn', 'https://unpkg.com/prestashop_accounts_vue_components@2/dist/psaccountsVue.umd.min.js');
         try {
-            $psAccountsService = $facade->getPsAccountsService();
 
-            $shopUuid = $psAccountsService->getShopUuidV4();
-            $email = $psAccountsService->getEmail();
-            $emailIsValidated = $psAccountsService->isEmailValidated();
-            $refreshToken = $psAccountsService->getRefreshToken();
-
-            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-                $ip_address = $_SERVER['HTTP_CLIENT_IP'];
-            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) { //whether ip is from proxy
-                $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-            } else { //whether ip is from remote address
-                $ip_address = $_SERVER['REMOTE_ADDR'];
-            }
+            $rbm_facade = $this->getService('ps_rbm.facade');
 
             Media::addJsDef([
                 'storePsFoobar' => [
-                    'context' => [
+                    'context' => array_merge($rbm_facade->present([
                         'versionPs' => _PS_VERSION_,
                         'versionModule' => $this->version,
                         'moduleName' => $this->name,
-                        'refreshToken' => $refreshToken,
-                        'i18n' => [
-                            'isoCode' => $this->getLanguageIsoCode(),
-                        ],
-                        'shop' => [
-                            'uuid' => $shopUuid,
-                        ],
-                        'user' => [
-                            'createdFromIp' => $ip_address,
-                            'email' => $email,
-                            'emailIsValidated' => $emailIsValidated,
-                            'emailSupport' => $this->emailSupport,
-                        ]
+                        'emailSupport' => $this->emailSupport,
+                        'isoCode' => $this->getLanguageIsoCode(),
+                        'ipAddress' => (isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '',
+                        'moduleTosUrl' => $this->getTosLink(),
+                    ]),
+                    [
+                        // 'quantity' => 15000,
+                        //'isSandbox' => true,
+                        // 'planIdSelected' => null,
+                        // 'byPassSelection' => true,
                     ]
+                    )
                 ]
             ]);
 
-        } catch (ModuleNotInstalledException $e) {
-
-            // You handle exception here
-
-        } catch (ModuleVersionException $e) {
-
+        } catch (Exception $e) {
             // You handle exception here
         }
 
         return $this->context->smarty->fetch($this->template_dir . 'foobarSettings.tpl');
     }
+
+    /**
+     * Get the Tos URL from the context language, if null, send default link value
+     *
+     * @return string
+     */
+    public function getTosLink()
+    {
+        $iso_lang = $this->getLanguageIsoCode();
+        switch ($iso_lang) {
+            case 'fr':
+                $url = 'https://www.prestashop.com/fr/prestashop-account-cgu';
+                break;
+            default:
+                $url = 'https://www.prestashop.com/en/prestashop-account-terms-conditions';
+                break;
+        }
+
+        return $url;
+    }
+
 
     /**
      * Retrieve service

@@ -29,7 +29,12 @@
       :onEventHook="eventHookHandler"
     />
 
-    <div v-if="sub && sub.id">Hello world</div>
+    <div v-if="sub && sub.id">
+      Hello world
+
+      <ps-subscription-quantity-test :context="context" />
+
+    </div>
 
   </div>
 </template>
@@ -44,7 +49,7 @@ import Vue from 'vue';
 import {PsAccounts} from "prestashop_accounts_vue_components";
 import { mapGetters, mapActions, mapState } from 'vuex'
 import moduleLogo from "@/assets/icon-ps-metrics.png";
-import { CustomerComponent, ModalContainerComponent, EVENT_HOOK_TYPE } from "@prestashopcorp/billing-cdc/dist/bundle.umd";
+import { SubscriptionQuantityTestComponent, CustomerComponent, ModalContainerComponent, EVENT_HOOK_TYPE } from "@prestashopcorp/billing-cdc/dist/bundle.umd";
 
 // let PsAccounts = window?.psaccountsVue?.PsAccounts;
 // This is a fallback in case the CDN doesn't work properly. If you want to do this
@@ -62,6 +67,7 @@ export default {
     PsAccounts,
     PsCustomer: CustomerComponent.driver('vue', Vue),
     ModalContainer: ModalContainerComponent.driver('vue', Vue),
+    PsSubscriptionQuantityTest: SubscriptionQuantityTestComponent.driver('vue', Vue),
   },
   computed: {
     ...mapState({

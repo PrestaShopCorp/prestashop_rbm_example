@@ -12,7 +12,8 @@
         "php": ">=5.6",
         "symfony/http-foundation": "^3.4",
         "prestashop/prestashop-accounts-installer": "^1.0.0",
-        "prestashop/module-lib-service-container": "^1.2"
+        "prestashop/module-lib-service-container": "^1.2",
+        "khanhmas/prestashop-rbm-installer": "^1.0.0"
     },
     "config": {
         "preferred-install": "dist",

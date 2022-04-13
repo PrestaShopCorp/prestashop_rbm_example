@@ -8,3 +8,6 @@ services:
     class: 'PrestaShop\PsAccountsInstaller\Installer\Facade\PsAccounts'
     arguments:
       - '@ps_accounts.installer'
+
+  ps_rbm.facade:
+    class: 'PrestaShop\PsRbmInstaller\Installer\Facade\PsRbm'
